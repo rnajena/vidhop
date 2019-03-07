@@ -17,7 +17,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'vidhop =cli:cli'
+            'vidhop =vidhop:cli'
         ]}
 
 )
