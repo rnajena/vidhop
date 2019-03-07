@@ -39,7 +39,7 @@ def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
 
     assert virus in ["rota","influ","rabies"], "not correct --virus parameter, use either rota, influ, or rabies"
     assert thresh >= 0 and thresh <=1, "error parameter --thresh: only thresholds between 0 and 1 allowed"
-    assert n_hosts >= 0, "error parameter --n_hosts: only positive number of hosts allowed allowed"
+    assert n_hosts >= 0, "error parameter --n_hosts: only positive number of hosts allowed"
 
     if outpath:
         sys.stdout = open(outpath, 'w')

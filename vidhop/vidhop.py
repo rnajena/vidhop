@@ -218,7 +218,6 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
         repeat = True
         use_spacer = False
         online = False
-        # model_path = "./weights/rota_weights.best.loss.random_repeat_run1.pkl"
         model_path = "/weights/rota_weights.best.loss.random_repeat_run1.pkl"
         random_repeat = True
         design = 4
@@ -234,7 +233,6 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
         repeat = True
         use_spacer = False
         online = True
-        # model_path = "./weights/influ_weights.best.acc.online_kickstart.pkl"
         model_path = "/weights/influ_weights.best.acc.online_kickstart.pkl"
         random_repeat = False
         design = 4
@@ -267,7 +265,6 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
         random_repeat = True
         design = 4
         hosts = 19
-        # model_path = "./weights/rabies_weights.best.acc.random_repeat_run1.pkl"
         model_path = "/weights/rabies_weights.best.acc.random_repeat_run1.pkl"
         index_classes = {0: 'Artibeus lituratus', 1: 'Bos taurus', 2: 'Canis lupus', 3: 'Capra hircus',
                          4: 'Cerdocyon thous', 5: 'Desmodus rotundus', 6: 'Eptesicus fuscus', 7: 'Equus caballus',
@@ -284,7 +281,7 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
     assert type(X_test_old)==str, "only prediction of single sequences per start_analyses instanz implemented yet"
 
     """due to random repeat make 10 predictions per sample"""
-    # X_test_old = [X_test_old] * 10
+    X_test_old = [X_test_old] * 10
 
     """parse input"""
     X_test = DataParsing.encode_string(maxLen=maxLen, x=X_test_old, repeat=repeat, use_spacer=use_spacer,
@@ -292,22 +289,11 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
 
     X_test, Y_test, batch_size = DataParsing.shrink_timesteps(X_test, [], 0)
 
-    # if online:
-    #     subSeqLength = X_test.shape[1]
-    #     index_clean = [i for i, j in enumerate(X_test) if len(j) > subSeqLength]
-    #     X_train_copy_clean = [X_train[i] for i in index_clean]
-    #     X_train_manipulated, Y_train_manipulated = DataParsing.manipulate_training_data(X=X_t,
-    #                                                                                     Y=Y_train,
-    #                                                                                     subSeqLength=,
-    #                                                                                     number_subsequences=batch_size)
-
     """build model"""
     model = get_model(design=design, X_test=X_test, hosts=hosts)
 
     """load previously trained weights"""
-    print(os.getcwd())
     exact_path_to_model_weigth = pkg_resources.resource_filename("vidhop", model_path)
-    print(exact_path_to_model_weigth)
     weights = pickle.load(open(f"{exact_path_to_model_weigth}", "rb"))
     weights = gpu_weights_to_cpu_weights(model, weights)
     model.set_weights(weights)

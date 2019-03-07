@@ -1,11 +1,10 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='VIrus Deep learning HOst Prediction',
+    name='vidhop',
     version='0.2',
     author='Florian Mock',
     py_modules=['vidhop'],
-    # py_modules=['cli','vidhop','DataParsing'],
     packages=find_packages(),
     package_data={'vidhop': ['weights/*.pkl']},
     # include_package_data=True,
@@ -16,7 +15,6 @@ setup(
         'numpy',
         'sklearn'
     ],
-    # data_files=('.', ('weights',['./vidhop/weights/influ_weights.best.acc.online_kickstart.pkl', './vidhop/weights/rota_weights.best.loss.random_repeat_run1.pkl','./vidhop/weights/rabies_weights.best.acc.random_repeat_run1.pkl'])),
     entry_points={
         'console_scripts': [
             'vidhop =vidhop:cli'
