@@ -12,10 +12,7 @@ setup(
         'numpy',
         'keras',
         'numpy',
-        'sklearn',
-        're',
-        'multiprocessing',
-        'operator'
+        'sklearn'
     ],
     entry_points={
         'console_scripts': [
