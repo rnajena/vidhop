@@ -15,13 +15,7 @@ import sys
 @click.option('--n_hosts', '-n', default=int(0), help='number of most likely hosts to return')
 @click.option('--thresh', '-t', default=float(0), help='Length of the analyzed tuples.')
 @click.option('--auto_filter', '-f', is_flag=True, help='automatically filters output to present most relevant host')
-# @click.option('--recursiv', '-r', is_flag=True, help='Uses also all subdirectories.')
-# @click.option('--log', is_flag=True,
-#               help='Returns fold results with log scale. Easier interpretation of over-,under- occurrence.')
-# @click.option('--filter', is_flag=True, help='Filter out microsatellites')
 @click.version_option(version=0.2, prog_name="VIrus Deep learning HOst Predictor")
-# @click.option('--sat_length', default=str(5), help='Maximum length microsatellite tuple.')
-# @click.option('--sat_count', default=str(10), help='Minimum number repetitions microsatellite tuple.')
 
 def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
     '''

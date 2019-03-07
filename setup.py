@@ -4,12 +4,18 @@ setup(
     name='VIrus Deep learning HOst Prediction',
     version='0.2',
     author='Florian Mock',
-    py_modules=['cli','vidhop'],
+    py_modules=['cli','vidhop','DataParsing'],
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
         'Click',
         'numpy',
+        'keras',
+        'numpy',
+        'sklearn',
+        're',
+        'multiprocessing',
+        'operator'
     ],
     entry_points={
         'console_scripts': [
