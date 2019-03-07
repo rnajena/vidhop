@@ -308,7 +308,7 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
     print(os.getcwd())
     exact_path_to_model_weigth = pkg_resources.resource_filename("vidhop", model_path)
     print(exact_path_to_model_weigth)
-    weights = pickle.load(open(f"{model_path}", "rb"))
+    weights = pickle.load(open(f"{exact_path_to_model_weigth}", "rb"))
     weights = gpu_weights_to_cpu_weights(model, weights)
     model.set_weights(weights)
 
