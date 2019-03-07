@@ -21,7 +21,7 @@ from keras.layers import SimpleRNN, LSTM, Dense, Flatten, Embedding, Dropout, GR
 from .DataParsing import DataParsing
 from keras.engine.saving import preprocess_weights_for_loading
 import numpy as np
-
+import pkg_resources
 
 def get_model(design, X_test, hosts, nodes=150, dropout=0):
     timesteps = X_test.shape[1]
@@ -218,7 +218,8 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
         repeat = True
         use_spacer = False
         online = False
-        model_path = "./weights/rota_weights.best.loss.random_repeat_run1.pkl"
+        # model_path = "./weights/rota_weights.best.loss.random_repeat_run1.pkl"
+        model_path = "/weights/rota_weights.best.loss.random_repeat_run1.pkl"
         random_repeat = True
         design = 4
         hosts = 6
@@ -233,7 +234,8 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
         repeat = True
         use_spacer = False
         online = True
-        model_path = "./weights/influ_weights.best.acc.online_kickstart.pkl"
+        # model_path = "./weights/influ_weights.best.acc.online_kickstart.pkl"
+        model_path = "/weights/influ_weights.best.acc.online_kickstart.pkl"
         random_repeat = False
         design = 4
         hosts = 49
@@ -265,7 +267,8 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
         random_repeat = True
         design = 4
         hosts = 19
-        model_path = "./weights/rabies_weights.best.acc.random_repeat_run1.pkl"
+        # model_path = "./weights/rabies_weights.best.acc.random_repeat_run1.pkl"
+        model_path = "/weights/rabies_weights.best.acc.random_repeat_run1.pkl"
         index_classes = {0: 'Artibeus lituratus', 1: 'Bos taurus', 2: 'Canis lupus', 3: 'Capra hircus',
                          4: 'Cerdocyon thous', 5: 'Desmodus rotundus', 6: 'Eptesicus fuscus', 7: 'Equus caballus',
                          8: 'Felis catus', 9: 'Homo sapiens', 10: 'Lasiurus borealis', 11: 'Mephitis mephitis',
@@ -303,6 +306,8 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
 
     """load previously trained weights"""
     print(os.getcwd())
+    exact_path_to_model_weigth = pkg_resources.resource_filename("vidhop", model_path)
+    print(exact_path_to_model_weigth)
     weights = pickle.load(open(f"{model_path}", "rb"))
     weights = gpu_weights_to_cpu_weights(model, weights)
     model.set_weights(weights)
