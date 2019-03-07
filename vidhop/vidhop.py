@@ -18,7 +18,7 @@ import pickle
 from keras.models import Sequential, Model
 from keras.layers import SimpleRNN, LSTM, Dense, Flatten, Embedding, Dropout, GRU, CuDNNLSTM, BatchNormalization, \
     Bidirectional, Conv1D, MaxPooling1D, Input, Concatenate, Activation, LeakyReLU
-import DataParsing
+from .DataParsing import DataParsing
 from keras.engine.saving import preprocess_weights_for_loading
 import numpy as np
 
