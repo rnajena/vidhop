@@ -302,6 +302,7 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
     model = get_model(design=design, X_test=X_test, hosts=hosts)
 
     """load previously trained weights"""
+    print(os.getcwd())
     weights = pickle.load(open(f"{model_path}", "rb"))
     weights = gpu_weights_to_cpu_weights(model, weights)
     model.set_weights(weights)

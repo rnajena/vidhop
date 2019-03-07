@@ -7,7 +7,7 @@ setup(
     py_modules=['vidhop'],
     # py_modules=['cli','vidhop','DataParsing'],
     packages=find_packages(),
-    include_package_data=True,
+    # include_package_data=True,
     install_requires=[
         'Click',
         'numpy',
@@ -15,7 +15,7 @@ setup(
         'numpy',
         'sklearn'
     ],
-    # data_files=('vidhop', ('weights',['vidhop/weights/influ_weights.best.acc.online_kickstart.pkl', 'vidhop/weights/rota_weights.best.loss.random_repeat_run1.pkl','vidhop/weights/rabies_weights.best.acc.random_repeat_run1.pkl'])),
+    data_files=('vidhop', ('weights',['vidhop/weights/influ_weights.best.acc.online_kickstart.pkl', 'vidhop/weights/rota_weights.best.loss.random_repeat_run1.pkl','vidhop/weights/rabies_weights.best.acc.random_repeat_run1.pkl'])),
     entry_points={
         'console_scripts': [
             'vidhop =vidhop:cli'
