@@ -47,4 +47,4 @@ def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
     for key, value in header_dict.items():
         vidhop.start_analyses(virus=virus,top_n_host=n_hosts,threshold=thresh,X_test_old=value,header=key, auto_filter=auto_filter)
 
-# cli()
+cli()
