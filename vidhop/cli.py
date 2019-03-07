@@ -3,7 +3,7 @@ MPT command line.
 """
 
 import click
-import vidhop
+from .vidhop import path_to_fastaFiles, start_analyses
 import sys
 # import os
 
@@ -43,8 +43,8 @@ def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
 
     if outpath:
         sys.stdout = open(outpath, 'w')
-    header_dict = vidhop.path_to_fastaFiles(input)
+    header_dict = path_to_fastaFiles(input)
     for key, value in header_dict.items():
-        vidhop.start_analyses(virus=virus,top_n_host=n_hosts,threshold=thresh,X_test_old=value,header=key, auto_filter=auto_filter)
+        start_analyses(virus=virus,top_n_host=n_hosts,threshold=thresh,X_test_old=value,header=key, auto_filter=auto_filter)
 
 cli()
