@@ -1,15 +1,31 @@
-# vidhop
+# VIDHOP
 VIDHOP is a virus host predicting tool. Its able to predict influenza A virus, rabies lyssavirus and rotavirus A.
 
 **Install via:**
-it is recommendet to use miniconda for the enviroment management
+
+We recommend to use miniconda for the enviroment management
 see https://conda.io/en/latest/miniconda.html
+
 after miniconda is installed:
+
+download the enviroment.yml file from this githubpage
+```
+wget https://raw.githubusercontent.com/flomock/vidhop/master/environment.yml
+```
+create conda enviroment from file, you may need to change the file path for environment.yml
 ```
 conda env create -f environment.yml
+```
+now join the new enviroment
+```
 conda activate vidhop
+```
+install vidhop
+```
 pip install git+https://github.com/flomock/vidhop.git@master
 ```
+
+
 
 
 
