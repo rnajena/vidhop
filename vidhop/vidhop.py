@@ -1,23 +1,9 @@
-# from numpy.random import seed
-# seed(1)
-# from tensorflow import set_random_seed
-# set_random_seed(2)
-# import random
-# random.seed(3)
-from keras.models import load_model
-# import os
-# os.environ['PYTHONHASHSEED'] = '0'
-
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import os
-# filters tensor flow output (the higher the number the more ist filtered)
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'  # {0, 1, 2 (warnings), 3 (errors)}
-import tensorflow as tf
 import pickle
-from keras.models import Sequential, Model
-from keras.layers import SimpleRNN, LSTM, Dense, Flatten, Embedding, Dropout, GRU, CuDNNLSTM, BatchNormalization, \
-    Bidirectional, Conv1D, MaxPooling1D, Input, Concatenate, Activation, LeakyReLU
+from keras.models import Sequential
+from keras.layers import LSTM, Dense, Dropout, Bidirectional, Conv1D, MaxPooling1D, LeakyReLU
 from .DataParsing import DataParsing
 from keras.engine.saving import preprocess_weights_for_loading
 import numpy as np
@@ -35,7 +21,6 @@ def get_model(design, X_test, hosts, nodes=150, dropout=0):
 
     if design == 7:
         model.add(Conv1D(nodes, 9, input_shape=(timesteps, X_test.shape[-1])))
-        # model.add(Activation('relu',alpha= 0.01))
         model.add(LeakyReLU(alpha=0.01))
         model.add(MaxPooling1D(3))
         model.add(Conv1D(nodes, 9))
@@ -52,8 +37,6 @@ def get_model(design, X_test, hosts, nodes=150, dropout=0):
 
     model.add(Dense(nodes, activation='elu'))
     model.add(Dropout(dropout))
-    # model.add(Dense((nodes+Y_train.shape[-1])//2, activation='elu'))
-    # model.add(Dropout(dropout))
     model.add(Dense(hosts, activation='softmax'))
 
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc'], sample_weight_mode=None)
@@ -127,8 +110,8 @@ def calc_predictions(batch_size, y_pred):
 def show_output(index_classes, y_pred_mean_exact, y_pred_mean_weight_std_exact, top_n_host=False, threshold=False,
                 filter=False):
     """using the Std-div version, if mean prefered comment next two lines"""
-    # y_pred_mean_weight_std_exact_normed = y_pred_mean_weight_std_exact / np.sum(y_pred_mean_weight_std_exact)
-    # y_pred_mean_exact = y_pred_mean_weight_std_exact_normed
+    y_pred_mean_weight_std_exact_normed = y_pred_mean_weight_std_exact / np.sum(y_pred_mean_weight_std_exact)
+    y_pred_mean_exact = y_pred_mean_weight_std_exact_normed
 
     sorted_host_indices = np.argsort(y_pred_mean_exact)[::-1]
 
@@ -322,9 +305,6 @@ if __name__ == '__main__':
     # top_n_host = 3
     # threshold = 0.2
     X_test_old = "ACCCAATTAACCCAATTAACCCAATTAACCCAATTAACCCAATTAACCCAATTAACCCAATTAACCCAATTAACCCAATTAACCCAATTAACCCAATTACT"
-    # X_test_old = [
-    #     "GGGAAAGGGACATTTGAAAGAAGATTCTTCAGAGATGAGAAAGAACTTCAAGAATACGAGGCGGCTGAACTGACAAAGACTGACGTAGCACTGGCAGATGATGGAACTGTCAACTCTGACGACGAGGACTACTTCTCAGGTGAAACCAGAAGTCCGGAAGCTGTTTATACTCGAATCATAATGAATGGAGGTCGACTGAAGAGATCGCACATACGGAGATATGTCTCAGTCAGTTCCAATCATCAAGCTCGTCCAAACTCATTCGCCGAGTTTCTAAACAAGACATATTCGAGTGACTCATAAGAAGTTGAATAACAAAA",
-    #     "TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTAACCCAATTAACCCAATTAACCCAATTAACTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTCCAATTACT"]
 
     start_analyses(virus="influ", top_n_host=top_n_host, threshold=threshold, X_test_old=X_test_old, header=">test",
                    auto_filter=True)
