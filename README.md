@@ -62,7 +62,7 @@ command | what it does
 -n, --n_hosts   |show only -n most likely hosts
 -t, --thresh    |show only hosts with higher likeliness then --thresh
 --auto_filter   |automatically filters output to present most relevant host
---help          |Show this message and exit.
+--help          |show this message and exit.
 --version       |show version number from vidhop
 
 <br><br>
