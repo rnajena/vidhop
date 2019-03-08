@@ -30,6 +30,11 @@ pip install git+https://github.com/flomock/vidhop.git@master
 
 
 ## How to use:
+First, if have not already activated your conda environment:
+```
+source  programs/conda/bin/activate vidhop
+```
+now you can simply use vidhop via:
 
   **Example:**
 ```
