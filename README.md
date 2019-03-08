@@ -40,12 +40,12 @@ pip install git+https://github.com/flomock/vidhop.git@master
 
 command | what it does
   ------------- | -------------
--i, --input     |Path to fasta, csv, or directory with multiple files.  [required]
--v, --virus     |Length of the resulting word.
--o, --outpath   |Length of the analyzed tuples.
--n, --n_hosts   |Necessary if path contains fasta-file which should be used.
--t, --thresh    |Uses also all subdirectories.
---auto_filter   |Filter out microsatellites;
+-i, --input     |either raw sequences or path to fasta file or directory with multiple files.  [required]
+-v, --virus     |select virus species (influ, rabies, rota) [required]
+-o, --outpath   |path where to save the output
+-n, --n_hosts   |show only -n most likely hosts
+-t, --thresh    |show only hosts with higher likeliness then --thresh
+--auto_filter   |automatically filters output to present most relevant host
 --help          |Show this message and exit.
 --version       |show version number from vidhop
 

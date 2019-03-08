@@ -9,11 +9,11 @@ import sys
 
 
 @click.command()
-@click.option('--input', '-i', required=True, help='Path to input fasta file')
-@click.option('--virus', '-v', required=True, help='select virus species (influ, rabies, rota')
-@click.option('--outpath', '-o', help='Path were to save the output')
-@click.option('--n_hosts', '-n', default=int(0), help='number of most likely hosts to return')
-@click.option('--thresh', '-t', default=float(0), help='Length of the analyzed tuples.')
+@click.option('--input', '-i', required=True, help='either raw sequences or path to fasta file or directory with multiple files.')
+@click.option('--virus', '-v', required=True, help='select virus species (influ, rabies, rota)')
+@click.option('--outpath', '-o', help='path where to save the output')
+@click.option('--n_hosts', '-n', default=int(0), help='show only -n most likely hosts')
+@click.option('--thresh', '-t', default=float(0), help='show only hosts with higher likeliness then --thresh')
 @click.option('--auto_filter', '-f', is_flag=True, help='automatically filters output to present most relevant host')
 @click.version_option(version=0.2, prog_name="VIrus Deep learning HOst Predictor")
 
