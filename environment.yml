@@ -1,72 +1,70 @@
 name: vidhop
 channels:
-- bioconda
-- conda-forge
-- defaults
+  - bioconda
+  - conda-forge
+  - defaults
 dependencies:
-- absl-py=0.7.0=py36_1000
-- astor=0.7.1=py_0
-- backports=1.0=py_2
-- backports.weakref=1.0.post1=py36_1000
-- binutils_impl_linux-64=2.31.1=h6176602_1
-- binutils_linux-64=2.31.1=h6176602_3
-- blas=1.1=openblas
-- bleach=1.5.0=py36_0
-- bzip2=1.0.6=h14c3975_1002
-- c-ares=1.15.0=h14c3975_1001
-- ca-certificates=2018.11.29=ha4d7672_0
-- certifi=2018.11.29=py36_1000
-- click=7.0=py_0
-- gast=0.2.2=py_0
-- gcc_impl_linux-64=7.3.0=habb00fd_1
-- gcc_linux-64=7.3.0=h553295d_3
-- grpcio=1.16.0=py36h4f00d22_1000
-- gxx_impl_linux-64=7.3.0=hdf63c60_1
-- gxx_linux-64=7.3.0=h553295d_3
-- h5py=2.9.0=nompi_py36hf008753_1102
-- hdf5=1.10.4=nompi_h11e915b_1105
-- html5lib=0.9999999=py36_0
-- keras=2.2.4=py36_0
-- keras-applications=1.0.4=py_1
-- keras-preprocessing=1.0.2=py_1
-- libffi=3.2.1=hf484d3e_1005
-- libgcc-ng=7.3.0=hdf63c60_0
-- libgfortran=3.0.0=1
-- libgfortran-ng=7.2.0=hdf63c60_3
-- libgpuarray=0.7.6=h14c3975_1003
-- libprotobuf=3.7.0=hdbcaa40_0
-- libstdcxx-ng=7.3.0=hdf63c60_0
-- mako=1.0.7=py_1
-- markdown=2.6.11=py_0
-- markupsafe=1.1.1=py36h14c3975_0
-- mock=2.0.0=py36_1001
-- ncurses=6.1=hf484d3e_1002
-- numpy=1.16.2=py36_blas_openblash1522bff_0
-- openblas=0.3.3=h9ac9557_1001
-- openssl=1.0.2r=h14c3975_0
-- pbr=5.1.3=py_0
-- pip=19.0.3=py36_0
-- protobuf=3.7.0=py36hf484d3e_0
-- pygpu=0.7.6=py36h3010b51_1000
-- python=3.6.7=hd21baee_1002
-- pyyaml=3.13=py36h14c3975_1001
-- readline=7.0=hf8c457e_1001
-- scikit-learn=0.20.3=py36_blas_openblashebff5e3_0
-- scipy=1.2.1=py36_blas_openblash1522bff_0
-- setuptools=40.8.0=py36_0
-- six=1.12.0=py36_1000
-- sqlite=3.26.0=h67949de_1000
-- tensorboard=1.10.0=py36_0
-- tensorflow=1.10.0=py36_0
-- termcolor=1.1.0=py_2
-- theano=1.0.4=py36hf484d3e_1000
-- tk=8.6.9=h84994c4_1000
-- webencodings=0.5.1=py_1
-- werkzeug=0.14.1=py_0
-- wheel=0.33.1=py36_0
-- xz=5.2.4=h14c3975_1001
-- yaml=0.1.7=h14c3975_1001
-- zlib=1.2.11=h14c3975_1004
-- mkl=2017.0.3=0
-prefix: /home/go96bix/programs/conda/envs/vidhop
+  - absl-py=0.7.1=py37_0
+  - astor=0.7.1=py_0
+  - binutils_impl_linux-64=2.31.1=h6176602_1
+  - binutils_linux-64=2.31.1=h6176602_3
+  - bzip2=1.0.6=h14c3975_1002
+  - c-ares=1.15.0=h14c3975_1001
+  - ca-certificates=2019.3.9=hecc5488_0
+  - certifi=2019.3.9=py37_0
+  - click=7.0=py_0
+  - gast=0.2.2=py_0
+  - gcc_impl_linux-64=7.3.0=habb00fd_1
+  - gcc_linux-64=7.3.0=h553295d_3
+  - grpcio=1.16.1=py37hf8bcb03_1
+  - gxx_impl_linux-64=7.3.0=hdf63c60_1
+  - gxx_linux-64=7.3.0=h553295d_3
+  - h5py=2.9.0=nompi_py37hf008753_1102
+  - hdf5=1.10.4=nompi_h3c11f04_1106
+  - keras=2.2.4=py37_1
+  - keras-applications=1.0.7=py_1
+  - keras-preprocessing=1.0.9=py_1
+  - libblas=3.8.0=8_openblas
+  - libcblas=3.8.0=8_openblas
+  - libffi=3.2.1=he1b5a44_1006
+  - libgcc-ng=8.2.0=hdf63c60_1
+  - libgfortran-ng=7.3.0=hdf63c60_0
+  - libgpuarray=0.7.6=h14c3975_1003
+  - liblapack=3.8.0=8_openblas
+  - libprotobuf=3.7.1=h8b12597_0
+  - libstdcxx-ng=8.2.0=hdf63c60_1
+  - mako=1.0.7=py_1
+  - markdown=2.6.11=py_0
+  - markupsafe=1.1.1=py37h14c3975_0
+  - mock=3.0.3=py37_0
+  - ncurses=6.1=hf484d3e_1002
+  - numpy=1.16.3=py37he5ce36f_0
+  - openblas=0.3.6=h6e990d7_1
+  - openssl=1.1.1b=h14c3975_1
+  - pip=19.1=py37_0
+  - protobuf=3.7.1=py37he1b5a44_0
+  - pygpu=0.7.6=py37h3010b51_1000
+  - python=3.7.3=h5b0a415_0
+  - pyyaml=5.1=py37h14c3975_0
+  - readline=7.0=hf8c457e_1001
+  - scikit-learn=0.20.3=py37ha8026db_1
+  - scipy=1.2.1=py37h09a28d5_1
+  - setuptools=41.0.1=py37_0
+  - six=1.12.0=py37_1000
+  - sqlite=3.26.0=h67949de_1001
+  - tensorboard=1.13.1=py37_0
+  - tensorflow=1.13.1=py37_0
+  - tensorflow-estimator=1.13.0=py_0
+  - termcolor=1.1.0=py_2
+  - theano=1.0.4=py37hf484d3e_1000
+  - tk=8.6.9=h84994c4_1001
+  - werkzeug=0.15.2=py_0
+  - wheel=0.33.1=py37_0
+  - xz=5.2.4=h14c3975_1001
+  - yaml=0.1.7=h14c3975_1001
+  - zlib=1.2.11=h14c3975_1004
+  - pip:
+    - sklearn==0.0
+    - vidhop==0.2
+prefix: /home/go96bix/programs/conda/envs/vidhop2
 
