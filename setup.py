@@ -12,7 +12,6 @@ setup(
         'Click',
         'numpy',
         'keras',
-        'numpy',
         'sklearn'
     ],
     entry_points={

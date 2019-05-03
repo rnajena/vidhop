@@ -1,6 +1,12 @@
+# lower verbosity of tensorflow
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import os
+from tensorflow import logging
+logging.set_verbosity(logging.ERROR)
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+# import needed packages
 import pickle
 from keras.models import Sequential
 from keras.layers import LSTM, Dense, Dropout, Bidirectional, Conv1D, MaxPooling1D, LeakyReLU
