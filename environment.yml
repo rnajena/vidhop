@@ -63,8 +63,5 @@ dependencies:
   - xz=5.2.4=h14c3975_1001
   - yaml=0.1.7=h14c3975_1001
   - zlib=1.2.11=h14c3975_1004
-  - pip:
-    - sklearn==0.0
-    - vidhop==0.2
 prefix: /home/go96bix/programs/conda/envs/vidhop2
 
