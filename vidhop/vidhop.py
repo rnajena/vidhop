@@ -1,8 +1,10 @@
 # lower verbosity of tensorflow
 import warnings
+
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import os
 from tensorflow import logging
+
 logging.set_verbosity(logging.ERROR)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -14,6 +16,7 @@ from .DataParsing import DataParsing
 from keras.engine.saving import preprocess_weights_for_loading
 import numpy as np
 import pkg_resources
+
 
 def get_model(design, X_test, hosts, nodes=150, dropout=0):
     timesteps = X_test.shape[1]
@@ -199,75 +202,66 @@ def path_to_fastaFiles(mypath):
 
 
 def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter):
-
     assert len(X_test_old) >= 100, "sequence to short, please use sequences with at least 100 bases as input"
 
     if virus == "rota":
-        maxLen = 3204
+        maxLen = 2717
         repeat = True
         use_spacer = False
-        online = False
-        model_path = "/weights/rota_weights.best.loss.random_repeat_run1.pkl"
-        random_repeat = True
-        design = 4
+        online = True
+        model_path = "/weights/rota_weights.best.acc.online_design_7.hdf5"
+        random_repeat = False
+        design = 7
         hosts = 6
         index_classes = {0: 'Bos taurus', 1: 'Equus caballus', 2: 'Gallus gallus', 3: 'Homo sapiens', 4: 'Sus scrofa',
                          5: 'Vicugna pacos'}
-        a = "0.69 0.8 0.41 0.82 0.56 0.25"
+        a = "0.61 0.73 0.01 0.86 0.98 0.5"
+
         influ = a.split(" ")
         multi_thresh = [float(i) for i in influ]
 
     elif virus == "influ":
         maxLen = 2316
         repeat = True
-        use_spacer = False
-        online = True
-        model_path = "/weights/influ_weights.best.acc.online_kickstart.pkl"
+        use_spacer = True
+        online = False
+        model_path = "/weights/influ_weights.best.acc.normal_repeat_spacer_run2.hdf5"
         random_repeat = False
         design = 4
-        hosts = 49
+        hosts = 36
         index_classes = {0: 'Anas acuta', 1: 'Anas carolinensis', 2: 'Anas clypeata', 3: 'Anas crecca',
-                         4: 'Anas cyanoptera', 5: 'Anas discors', 6: 'Anas platyrhynchos', 7: 'Anas rubripes',
-                         8: 'Anas sp.', 9: 'Anser albifrons', 10: 'Anser caerulescens', 11: 'Anser canagica',
-                         12: 'Anser fabalis', 13: 'Anser indicus', 14: 'Anser sp.', 15: 'Arenaria interpres',
-                         16: 'Aythya americana', 17: 'Aythya collaris', 18: 'Branta canadensis',
-                         19: 'Bucephala albeola', 20: 'Cairina moschata', 21: 'Calidris alba', 22: 'Calidris canutus',
-                         23: 'Calidris ruficollis', 24: 'Canis lupus', 25: 'Chroicocephalus ridibundus',
-                         26: 'Clangula hyemalis', 27: 'Cygnus columbianus', 28: 'Cygnus cygnus', 29: 'Cygnus olor',
-                         30: 'Equus caballus', 31: 'Gallus gallus', 32: 'Homo sapiens', 33: 'Larus argentatus',
-                         34: 'Larus glaucescens', 35: 'Leiostomus xanthurus', 36: 'Leucophaeus atricilla',
-                         37: 'Mareca americana', 38: 'Mareca penelope', 39: 'Mareca strepera',
-                         40: 'Meleagris gallopavo', 41: 'Oxyura vittata', 42: 'Plantago princeps',
-                         43: 'Sibirionetta formosa', 44: 'Struthio camelus', 45: 'Sus scrofa', 46: 'Tadorna ferruginea',
-                         47: 'Turnix sp.', 48: 'Uria aalge'}
-        a = "0.08 0.02 0.06 0.24 0.41 0.13 0.09 0.19 0.38 0.26 0.23 0.29 0.47 0.25 0.11 0.08 0.59 0.44 0.13 0.18 0.32" \
-            " 0.29 0.17 0.63 0.21 0.79 0.23 0.27 0.48 0.41 0.61 0.31 0.45 0.17 0.41 0.35 0.15 0.33 0.19 0.19 0.14" \
-            " 0.08 0.31 0.47 0.25 0.55 0.39 0.61 0.51"
+                         4: 'Anas discors', 5: 'Anas platyrhynchos', 6: 'Anas rubripes', 7: 'Anser albifrons',
+                         8: 'Anser fabalis', 9: 'Anser indicus', 10: 'Arenaria interpres', 11: 'Branta canadensis',
+                         12: 'Cairina moschata', 13: 'Calidris alba', 14: 'Calidris canutus', 15: 'Calidris ruficollis',
+                         16: 'Canis lupus', 17: 'Chroicocephalus ridibundus', 18: 'Cygnus columbianus',
+                         19: 'Cygnus cygnus', 20: 'Cygnus olor', 21: 'Equus caballus', 22: 'Gallus gallus',
+                         23: 'Homo sapiens', 24: 'Larus argentatus', 25: 'Larus glaucescens',
+                         26: 'Leucophaeus atricilla', 27: 'Mareca americana', 28: 'Mareca penelope',
+                         29: 'Mareca strepera', 30: 'Meleagris gallopavo', 31: 'Sibirionetta formosa',
+                         32: 'Struthio camelus', 33: 'Sus scrofa', 34: 'Tadorna ferruginea', 35: 'Uria aalge'}
+        a = "0.39 0.03 0.26 0.28 0.2 0.26 0.64 0.5 0.21 0.11 0.25 0.01 0.76 0.04 0.44 0.17 0.33 0.66 0.34 0.09 0.39 " \
+            "0.99 0.38 0.8 0.16 0.34 0.18 0.26 0.56 0.4 0.27 0.48 0.58 0.22 0.28 0.33"
         influ = a.split(" ")
         multi_thresh = [float(i) for i in influ]
 
     elif virus == "rabies":
-        maxLen = 5052
+        maxLen = 5054
         repeat = True
         use_spacer = False
         online = False
         random_repeat = True
-        design = 4
-        hosts = 19
-        model_path = "/weights/rabies_weights.best.acc.random_repeat_run1.pkl"
-        index_classes = {0: 'Artibeus lituratus', 1: 'Bos taurus', 2: 'Canis lupus', 3: 'Capra hircus',
-                         4: 'Cerdocyon thous', 5: 'Desmodus rotundus', 6: 'Eptesicus fuscus', 7: 'Equus caballus',
-                         8: 'Felis catus', 9: 'Homo sapiens', 10: 'Lasiurus borealis', 11: 'Mephitis mephitis',
-                         12: 'Nyctereutes procyonoides', 13: 'Otocyon megalotis', 14: 'Procyon lotor',
-                         15: 'Stomatepia mongo', 16: 'Tadarida brasiliensis', 17: 'Vulpes lagopus', 18: 'Vulpes vulpes'}
-        a = "0.55 0.2 0.31 0.22 0.36 0.52 0.95 0.3 0.25 0.16 0.61 0.6 0.42 0.65 0.75 0.4 0.79 0.79 0.45"
+        design = 7
+        hosts = 17
+        model_path = "/weights/rabies_weights.best.acc.random_repeat_run2_design_7.hdf5"
+        index_classes = {0: 'Artibeus lituratus', 1: 'Bos taurus', 2: 'Canis lupus', 3: 'Capra hircus', 4: 'Cerdocyon thous', 5: 'Desmodus rotundus', 6: 'Eptesicus fuscus', 7: 'Equus caballus', 8: 'Felis catus', 9: 'Homo sapiens', 10: 'Lasiurus borealis', 11: 'Mephitis mephitis', 12: 'Nyctereutes procyonoides', 13: 'Procyon lotor', 14: 'Tadarida brasiliensis', 15: 'Vulpes lagopus', 16: 'Vulpes vulpes'}
+        a = "0.56 0.35 0.33 0.16 0.08 0.43 0.97 0.19 0.28 0.29 0.8 0.43 0.52 0.99 0.2 0.86 0.34"
         influ = a.split(" ")
         multi_thresh = [float(i) for i in influ]
 
     if not auto_filter:
         multi_thresh = False
 
-    assert type(X_test_old)==str, "only prediction of single sequences per start_analyses instanz implemented yet"
+    assert type(X_test_old) == str, "only prediction of single sequences per start_analyses instanz implemented yet"
 
     """due to random repeat make 10 predictions per sample"""
     X_test_old = [X_test_old] * 10
@@ -283,9 +277,9 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
 
     """load previously trained weights"""
     exact_path_to_model_weigth = pkg_resources.resource_filename("vidhop", model_path)
-    weights = pickle.load(open(f"{exact_path_to_model_weigth}", "rb"))
-    weights = gpu_weights_to_cpu_weights(model, weights)
-    model.set_weights(weights)
+    # weights = pickle.load(open(f"{exact_path_to_model_weigth}", "rb"))
+    # weights = gpu_weights_to_cpu_weights(model, weights)
+    model.load_weights(exact_path_to_model_weigth)
 
     """predict input"""
     y_pred = model.predict_proba(X_test)
