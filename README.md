@@ -10,7 +10,7 @@ We recommend to use miniconda for the enviroment management
 2.  Create a Conda environment with a Python 3.6 or higher
 
     ```bash
-    conda create -n epidope python=3.7
+    conda create -n vidhop python=3.7
     ```
     
 3.  Activate the Conda environment. You will need to activate the Conda environment in each terminal in which you want to use epidope.
