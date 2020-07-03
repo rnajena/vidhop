@@ -38,11 +38,11 @@ def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
     $ vidhop -i /home/user/fasta/ -v rabies -n_hosts
     '''
 
-    assert virus in ["rota", "influ", "rabies"], "not correct --virus parameter, use either rota, influ, or rabies"
+    assert virus in ["rota", "influ", "rabies"] or virus.endswith(".model"), "not correct --virus parameter, use either rota, influ, rabies or path to .model file"
     assert thresh >= 0 and thresh <= 1, "error parameter --thresh: only thresholds between 0 and 1 allowed"
     assert n_hosts >= 0, "error parameter --n_hosts: only positive number of hosts allowed"
 
-    from .vidhop import path_to_fastaFiles, start_analyses
+    from vidhop.vidhop_main import path_to_fastaFiles, start_analyses
     if outpath:
         sys.stdout = open(outpath, 'w')
     header_dict = path_to_fastaFiles(input)

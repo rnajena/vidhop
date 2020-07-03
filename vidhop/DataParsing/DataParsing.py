@@ -1,6 +1,8 @@
+import re
+
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
-import re
+
 seed = 42
 import random
 random.seed(seed)
@@ -122,11 +124,8 @@ def encode_string(maxLen=None, x=[], y=[], y_encoder=None, repeat=True, use_spac
 
     if len(x) > 0:
         a = "ATGCN-"
-        # a = "GALMFWKQESPVICYHRNDT"
 
         encoder.fit(list(a))
-        # print(encoder.classes_)
-        # print(encoder.transform(encoder.classes_))
         out = []
         if type(x)==str:
             dnaSeq = re.sub(r"[^ACGTUacgtu]", 'N', x)
@@ -147,17 +146,13 @@ def encode_string(maxLen=None, x=[], y=[], y_encoder=None, repeat=True, use_spac
         else:
             out = pad_n_repeat_sequences(out, maxlen=maxLen, dtype='int16', truncating='pre', value=0)
 
-        # print(out[0][-10:-1])
         return np.array(to_categorical(out, num_classes=len(a)), dtype=np.bool)
     else:
         if y_encoder != None:
             encoder.fit(y)
-            # print(encoder.classes_)
-            # print(encoder.transform(encoder.classes_))
             if np.array(encoder.classes_ != y_encoder.classes_).all():
                 warning(f"Warning not same classes in training and test set")
             useable_classes = set(encoder.classes_).intersection(y_encoder.classes_)
-            # print(useable_classes)
             try:
                 assert np.array(encoder.classes_ == y_encoder.classes_).all()
             except AssertionError:
@@ -191,6 +186,7 @@ def encode_string(maxLen=None, x=[], y=[], y_encoder=None, repeat=True, use_spac
             encoder.fit(y)
             # print(encoder.classes_)
             # print(encoder.transform(encoder.classes_))
+
             encoded_Y = encoder.transform(y)
             return to_categorical(encoded_Y), encoder
 
