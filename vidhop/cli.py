@@ -4,12 +4,33 @@ MPT command line.
 
 import click
 import sys
+from vidhop.training.make_datasets import make_dataset
+from vidhop.training.train_new_model import training
+# intended for faster cli due to lazy import of tensorflow, but not working yet
+# import importlib
+#
+# class LazyLoader:
+#     def __init__(self, lib_name):
+#         self.lib_name = lib_name
+#         self._mod = None
+#
+#     def __getattrib__(self, name):
+#         if self._mod is None:
+#             self._mod = importlib.import_module(self.lib_name)
+#         return getattr(self._mod, name)
 
 
-# import os
+@click.group()
+def entry_point():
+    """
+    VIDHOP is a virus host predicting tool. \b\n
+    Its able to predict influenza A virus, rabies lyssavirus and rotavirus A.
+    Furthermore the user can train its own models for other viruses and use them with VIDHOP.
+    """
+    pass
 
 
-@click.command()
+@entry_point.command(name="predict", short_help="predict the host of the viral sequence given")
 @click.option('--input', '-i', required=True,
               help='either raw sequences or path to fasta file or directory with multiple files.')
 @click.option('--virus', '-v', required=True, help='select virus species (influ, rabies, rota)')
@@ -17,12 +38,13 @@ import sys
 @click.option('--n_hosts', '-n', default=int(0), help='show only -n most likely hosts')
 @click.option('--thresh', '-t', default=float(0), help='show only hosts with higher likeliness then --thresh')
 @click.option('--auto_filter', '-f', is_flag=True, help='automatically filters output to present most relevant host')
-@click.version_option(version=0.2, prog_name="VIrus Deep learning HOst Predictor")
+@click.version_option(version=0.9, prog_name="VIrus Deep learning HOst Predictor")
 def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
     '''
-    Example:
+    predict the host of the viral sequence given
 
     \b
+    Example:
     $ vidhop -i /home/user/fasta/influenza.fna -v influ
     \b
     present only hosts which reach a threshold of 0.2
@@ -38,7 +60,8 @@ def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
     $ vidhop -i /home/user/fasta/ -v rabies -n_hosts
     '''
 
-    assert virus in ["rota", "influ", "rabies"] or virus.endswith(".model"), "not correct --virus parameter, use either rota, influ, rabies or path to .model file"
+    assert virus in ["rota", "influ", "rabies"] or virus.endswith(
+        ".model"), "not correct --virus parameter, use either rota, influ, rabies or path to .model file"
     assert thresh >= 0 and thresh <= 1, "error parameter --thresh: only thresholds between 0 and 1 allowed"
     assert n_hosts >= 0, "error parameter --n_hosts: only positive number of hosts allowed"
 
@@ -51,5 +74,7 @@ def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
                        auto_filter=auto_filter)
 
 
-if __name__ == '__main__':
-    cli()
+# if __name__ == '__main__':
+entry_point.add_command(training)
+entry_point.add_command(make_dataset)
+entry_point()

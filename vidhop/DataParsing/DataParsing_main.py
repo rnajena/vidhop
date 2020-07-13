@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 seed = 42
 import random
 random.seed(seed)
-from keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical
 from logging import warning
 from multiprocessing.dummy import Pool as ThreadPool
 import multiprocessing

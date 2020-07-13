@@ -1,20 +1,12 @@
-# lower verbosity of tensorflow
 import warnings
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import os
-# from tensorflow import logging
-#
-# logging.set_verbosity(logging.ERROR)
-# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-# import needed packages
 import pickle
+# from vidhop.training.train_new_model import LazyLoader
+# tf = LazyLoader('tensorflow')
 import tensorflow as tf
-# from tensorflow.keras.models import Sequential
-# from keras.layers import LSTM, Dense, Dropout, Bidirectional, Conv1D, MaxPooling1D, LeakyReLU
-from DataParsing import DataParsing
-# from keras.engine.saving import preprocess_weights_for_loading
+from vidhop.DataParsing import DataParsing_main
 import numpy as np
 import pkg_resources
 
@@ -279,10 +271,10 @@ def start_analyses(virus, top_n_host, threshold, X_test_old, header, auto_filter
     X_test_old = [X_test_old] * 10
 
     """parse input"""
-    X_test = DataParsing.encode_string(maxLen=maxLen, x=X_test_old, repeat=repeat, use_spacer=use_spacer,
-                                       online_Xtrain_set=False, randomrepeat=random_repeat)
+    X_test = DataParsing_main.encode_string(maxLen=maxLen, x=X_test_old, repeat=repeat, use_spacer=use_spacer,
+                                            online_Xtrain_set=False, randomrepeat=random_repeat)
 
-    X_test, Y_test, batch_size = DataParsing.shrink_timesteps(X_test, [], 0)
+    X_test, Y_test, batch_size = DataParsing_main.shrink_timesteps(X_test, [], 0)
 
     """build model"""
     model = get_model(design=design, X_test=X_test, hosts=hosts)

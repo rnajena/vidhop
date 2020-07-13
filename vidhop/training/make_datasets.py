@@ -3,7 +3,7 @@ import os
 import pandas as pd
 import numpy as np
 
-@click.command()
+@click.command(name="make_dataset",short_help="create the data structure needed for training")
 @click.option('--sequences', '-x', required=True, help='path to the file containing sequence list')
 @click.option('--hosts', '-y', required=True, help='path to the file containing corresponding host list ')
 @click.option('--outpath', '-o', default='.', help='path where to save the output')
@@ -12,11 +12,11 @@ import numpy as np
 @click.option('--repeated_undersampling', '-r', is_flag=True, help='use repeated undersampling while training, to be usable the training files must be generated with make_dataset.py and activated reapeted undersampling parameter')
 
 
-def cli(sequences, hosts, outpath, val_split_size, test_split_size, repeated_undersampling):
-	'''
-		Example:
+def make_dataset(sequences, hosts, outpath, val_split_size, test_split_size, repeated_undersampling):
+	''' create the data structure needed for training
 
 		\b
+		Example:
 		set input and output parameter
 		$ python make_dataset.py -x /home/user/input/seq.txt -y /home/user/input/host.txt -o /home/user/trainingdata/
 		\b
@@ -30,7 +30,6 @@ def cli(sequences, hosts, outpath, val_split_size, test_split_size, repeated_und
 	df_x = pd.read_csv(sequences, names=['sequences'])
 	df = pd.read_csv(hosts, names=['hosts'])
 	df = df.merge(df_x, left_index=True, right_index=True)
-	# classes = y['hosts'].unique()
 	samples = dict()
 	rank = 'hosts'
 	hosts = []
@@ -110,4 +109,4 @@ def cli(sequences, hosts, outpath, val_split_size, test_split_size, repeated_und
 	Y_test.to_csv(outpath + '/Y_test.csv', sep='\t', encoding='utf-8', header=False)
 
 if __name__ == '__main__':
-	cli()
+	make_dataset()

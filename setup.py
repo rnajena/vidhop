@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='vidhop',
-    version='0.2',
+    version='0.9',
     author='Florian Mock',
     py_modules=['vidhop'],
     packages=find_packages(),
@@ -12,12 +12,14 @@ setup(
     install_requires=[
         'Click',
         'numpy',
-        'keras',
-        'scikit-learn'
+        'scikit-learn',
+        'pandas',
+        'matplotlib',
+        'tensorflow'
     ],
     entry_points={
         'console_scripts': [
-            'vidhop =vidhop.cli:cli'
+            'vidhop =vidhop.cli:entry_point'
         ]}
 
 )

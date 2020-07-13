@@ -1,23 +1,15 @@
-from pathlib import Path
 import numpy as np
 import tensorflow as tf
-# import keras
 import os
 import multiprocessing.pool
 from functools import partial
-# import keras_preprocessing.image.utils as utils
 from random import sample as randsomsample
 import pandas as pd
-import math
 import sys
 sys.path.insert(0, '/home/go96bix/projects/Masterarbeit/ML')
-from vidhop.DataParsing import DataParsing
-from sklearn.preprocessing import LabelEncoder
+from vidhop.DataParsing import DataParsing_main
 
 import warnings
-
-
-# from train_DL import X_Data
 
 class DataGenerator(tf.keras.utils.Sequence):
 	'Generates data for Keras'
@@ -198,7 +190,7 @@ class DataGenerator(tf.keras.utils.Sequence):
 		#
 		# X = seqvec.embed_sentence([i[start:stop] for i in X])
 		def encode_sample(sample):
-			X_i = DataParsing.encode_string(maxLen=maxLen, x=str(sample), repeat=self.repeat, use_spacer=self.use_spacer)
+			X_i = DataParsing_main.encode_string(maxLen=maxLen, x=str(sample), repeat=self.repeat, use_spacer=self.use_spacer)
 			return X_i
 
 		X_wrong_shape = np.array(pool.map(encode_sample,X))
@@ -208,10 +200,10 @@ class DataGenerator(tf.keras.utils.Sequence):
 		#                                                                       "the files, please deactivate shrink_timesteps"
 
 		if self.online_training:
-			X, Y = DataParsing.manipulate_training_data(X=X, Y=Y, subSeqLength=self.dim,
-														number_subsequences=self.number_subsequences)
+			X, Y = DataParsing_main.manipulate_training_data(X=X, Y=Y, subSeqLength=self.dim,
+															 number_subsequences=self.number_subsequences)
 		elif self.shrink_timesteps:
-			X, Y, batchsize = DataParsing.shrink_timesteps(input_subSeqlength=self.dim, X=X, Y=Y)
+			X, Y, batchsize = DataParsing_main.shrink_timesteps(input_subSeqlength=self.dim, X=X, Y=Y)
 
 		pool.close()
 		pool.join()
