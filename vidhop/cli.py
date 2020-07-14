@@ -74,9 +74,9 @@ def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
 
     # prepare output path
     if outpath:
-        if os.path.dirname(outpath) == outpath:
+        if outpath.endswith("/"):
             outpath = os.path.join(outpath, "prediction.txt")
-        outdir = os.path.dirname(outpath)
+        outdir = os.path.dirname(outpath)+"/"
         if not os.path.isdir(outdir):
             os.makedirs(outdir)
         sys.stdout = open(outpath, 'w')

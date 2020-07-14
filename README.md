@@ -1,5 +1,5 @@
 # VIDHOP
-VIDHOP is a virus host predicting tool. Its able to [predict](#quick-examples-for-vidhop-predict:) influenza A virus, rabies lyssavirus and rotavirus A. Furthermore the user can [train](Train-and-use-your-own-model:) its own models for other viruses and use them with VIDHOP.
+VIDHOP is a virus host predicting tool. Its able to [predict](#examples-for-vidhop-predict:) influenza A virus, rabies lyssavirus and rotavirus A. Furthermore the user can [train](#train-and-use-your-own-model:) its own models for other viruses and use them with VIDHOP.
 
 ## Install: ##
 
@@ -45,7 +45,7 @@ Use ```vidhop --help``` to see this summary of all three methods.
 
 Likely you'll mainly use predict, see below various examples: 
 
-**examples for vidhop predict:**
+#### examples for vidhop predict:
 
 
 ```
@@ -99,11 +99,11 @@ The workflow consists of three steps:
 
 2.  [vidhop training](#vidhop-training)
 
-3.  [vidhop predict](#vidhop-predict)
+3.  [vidhop predict](#examples-for-vidhop-predict)
 
  
 
-**vidhop make_dataset**
+#### vidhop make_dataset
 
 To generate the data sets needed for training you need to provide two input files.
 
@@ -143,7 +143,7 @@ command | what it does
 -r, --repeated_undersampling       |Generate training files needed for reapeted undersampling while training.
 --help          |Show this message and exit.
 
-**vidhop training**
+#### vidhop training
 
 The training of a model is done by providing the output directory of vidhop make_dataset as the input of vidhop training.
 The user can specify various parameter which change the architecture, training duration, input handling and further more.
@@ -183,7 +183,7 @@ command | what it does
 -r, --repeated_undersampling       |Use repeated undersampling while training, to be usable the training files must be generated with make_datasets and activated reapeted undersampling parameter.
 --help          |Show this message and exit.
 
-###toy-example
+### toy-example
 
 Download the test files X.txt (containing all sequences) und Y.txt (containing all corresponding hosts). 
 ```
