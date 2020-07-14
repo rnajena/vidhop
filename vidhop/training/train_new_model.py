@@ -26,33 +26,33 @@ import click
 
 @click.command(short_help="train a model on your training files generated with make_dataset")
 @click.option('--inpath', '-i', required=True,
-              help='path to the dir with training files, generated with make_dataset.py')
+              help='path to the dir with training files, generated with make_dataset')
 @click.option('--outpath', '-o', default='.', help='path where to save the output')
 @click.option('--name', '-n', help='suffix added to output file names')
-@click.option('--epochs', '-e', default=int(100), help='number of epochs for training the model')
+@click.option('--epochs', '-e', default=int(100), help='maximum number of epochs used for training the model')
 @click.option('--architecture', '-a', default=int(1), help='select architecture (0:LSTM, 1:CNN+LSTM)')
 @click.option('--extention_variant', '-v', default=int(1),
               help='select extension variant (0:Normal repeat, 1:Normal repeat with gaps, 2:Random repeat, 3:Random repeat with gaps, 4:Append gaps, 5:Smallest, 6:Online)')
 @click.option('--early_stopping', '-s', is_flag=True,
               help='stop training when model accuracy did not improve over time, patience 5% of max epochs')
 @click.option('--repeated_undersampling', '-r', is_flag=True,
-              help='use repeated undersampling while training, to be usable the training files must be generated with asdfasres.py and activated reapeted undersampling parameter')
+              help='use repeated undersampling while training, to be usable the training files must be generated with make_datasets and activated reapeted undersampling parameter')
 def training(inpath, outpath, name, epochs, architecture, extention_variant, early_stopping, repeated_undersampling):
     ''' Train a model on your training files generated with make_dataset
 
         \b
         Example:
         set input output and name of the model
-        $ python train_new_model.py -i /home/user/trainingdata/ -o /home/user/model/ --name test
+        $ vidhop train_new_model -i /home/user/trainingdata/ -o /home/user/model/ --name test
         \b
         use the LSTM archtecture and the extention variant random repeat
-        $ python train_new_model.py -i /home/user/trainingdata/ --architecture 0 --extention_variant 2
+        vidhop train_new_model -i /home/user/trainingdata/ --architecture 0 --extention_variant 2
         \b
         use repeated undersampling for training, note that for this the dataset must have been created with repeated undersampling enabled
-        $ python train_new_model.py -i /home/user/trainingdata/ -r
+        vidhop train_new_model -i /home/user/trainingdata/ -r
         \b
         train the model for 40 epochs, stop training if for 2 epochs the accuracy did not increase
-        $ python train_new_model.py -i /home/user/trainingdata/ --epochs 40 --early_stopping
+        vidhop train_new_model -i /home/user/trainingdata/ --epochs 40 --early_stopping
         '''
     if extention_variant in (0, 1, 2, 3):
         repeat = True
@@ -699,8 +699,8 @@ def model_for_plot(inpath, outpath, design=1, sampleSize=1, nodes=32, suffix="",
 
     model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc'], sample_weight_mode=None)
     # return model
-    filepath = inpath + "/model_best_acc_" + suffix + ".hdf5"
-    filepath2 = inpath + "/model_best_loss_" + suffix + ".hdf5"
+    filepath = outpath + "/model_best_acc_" + suffix + ".hdf5"
+    filepath2 = outpath + "/model_best_loss_" + suffix + ".hdf5"
     checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True,
                                                     mode='max')
     checkpoint2 = tf.keras.callbacks.ModelCheckpoint(filepath2, monitor='val_loss', verbose=1, save_best_only=True,
@@ -720,7 +720,7 @@ def model_for_plot(inpath, outpath, design=1, sampleSize=1, nodes=32, suffix="",
 
     if voting:
         myAccuracy = accuracyHistory()
-        myRoc = roc_History(name=suffix, path=inpath)
+        myRoc = roc_History(name=suffix, path=outpath)
         callbacks_list.append(myAccuracy)
         callbacks_list.append(myRoc)
 
@@ -1082,6 +1082,9 @@ def test_and_plot(inpath, outpath, suffix, batch_norm=False, filter_trainset=Fal
         file.write('(\'SEED\', ' + str(SEED) + ')\n')
         file.write('(\'directory\', ' + str(directory) + ')\n')
 
+    if not os.path.isdir(outpath):
+        os.makedirs(outpath)
+        
     # START TRAINING
     model_for_plot(inpath=inpath, outpath=outpath, design=design, sampleSize=sampleSize, nodes=nodes,
                    suffix=suffix, epochs=epochs, early_stopping_bool=early_stopping_bool,
@@ -1096,8 +1099,8 @@ def test_and_plot(inpath, outpath, suffix, batch_norm=False, filter_trainset=Fal
     # y_pred = model.predict(X_test)
     # calc_predictions(X_test, Y_test, y_pred, do_print=True)
 
-    model_path1 = f"{inpath}/model_best_loss_{suffix}.hdf5"
-    model_path2 = f"{inpath}/model_best_acc_{suffix}.hdf5"
+    model_path1 = f"{outpath}/model_best_loss_{suffix}.hdf5"
+    model_path2 = f"{outpath}/model_best_acc_{suffix}.hdf5"
     for model_path in (model_path1, model_path2):
         print("load model:")
         print(model_path)
@@ -1107,8 +1110,8 @@ def test_and_plot(inpath, outpath, suffix, batch_norm=False, filter_trainset=Fal
                                                                                               y_pred=pred,
                                                                                               do_print=True)
         print("make test")
-        myRoc = roc_History(name="_".join(model_path.split("_")[-3:-1]) + "_" + suffix, path=inpath)
-        # myRoc = roc_History(name=suffix, path=inpath)
+        myRoc = roc_History(name="_".join(model_path[len(outpath):].split("_")[1:3]) + "_" + suffix, path=outpath)
+        # myRoc = roc_History(name=suffix, path=outpath)
         myRoc.on_train_begin()
         global prediction_val
         prediction_val = model.predict(X_test)
@@ -1130,7 +1133,7 @@ def test_and_plot(inpath, outpath, suffix, batch_norm=False, filter_trainset=Fal
         hosts = Y_test.shape[-1]
         pickle.dump(
             (model.to_json(), model.get_weights(), index_classes, multi_thresh, maxLen, repeat, use_repeat_spacer,
-             online_training, randomrepeat, design, hosts), open(f"{model_path.split('.')[0]}.model", "wb"))
+             online_training, randomrepeat, design, hosts), open(f"{model_path.split('.hdf5')[0]}.model", "wb"))
 
     tf.keras.backend.clear_session()
     del model

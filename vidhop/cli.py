@@ -6,6 +6,7 @@ import click
 import sys
 from vidhop.training.make_datasets import make_dataset
 from vidhop.training.train_new_model import training
+import os
 # intended for faster cli due to lazy import of tensorflow, but not working yet
 # import importlib
 #
@@ -45,19 +46,23 @@ def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
 
     \b
     Example:
-    $ vidhop -i /home/user/fasta/influenza.fna -v influ
+    $ vidhop predict -i /home/user/fasta/influenza.fna -v influ
     \b
     present only hosts which reach a threshold of 0.2
-    $ vidhop -i /home/user/fasta/influenza.fna -v influ -t 0.2
+    $ vidhop predict -i /home/user/fasta/influenza.fna -v influ -t 0.2
     \b
     if you want the output in a file
-    $ vidhop -i /home/user/fasta/influenza.fna -v influ -o /home/user/vidhop_result.txt
+    $ vidhop predict -i /home/user/fasta/influenza.fna -v influ -o /home/user/vidhop_result.txt
     \b
     use multiple fasta-files in directory
-    $ vidhop -i /home/user/fasta/ -v rabies
+    $ vidhop predict -i /home/user/fasta/ -v rabies
     \b
     use multiple fasta-files in directory and only present top 3 host predictions per sequence
-    $ vidhop -i /home/user/fasta/ -v rabies -n_hosts
+    $ vidhop predict -i /home/user/fasta/ -v rabies -n_hosts
+    \b
+    Use your own trained models generated with vidhop training, specify path to the .model file you want to use.
+    $ vidhop predict -v /home/user/out_training/model_best_acc_testname.model -i /home/user/fasta/
+
     '''
 
     assert virus in ["rota", "influ", "rabies"] or virus.endswith(
@@ -66,8 +71,16 @@ def cli(input, virus, outpath, n_hosts, thresh, auto_filter):
     assert n_hosts >= 0, "error parameter --n_hosts: only positive number of hosts allowed"
 
     from vidhop.vidhop_main import path_to_fastaFiles, start_analyses
+
+    # prepare output path
     if outpath:
+        if os.path.dirname(outpath) == outpath:
+            outpath = os.path.join(outpath, "prediction.txt")
+        outdir = os.path.dirname(outpath)
+        if not os.path.isdir(outdir):
+            os.makedirs(outdir)
         sys.stdout = open(outpath, 'w')
+
     header_dict = path_to_fastaFiles(input)
     for key, value in header_dict.items():
         start_analyses(virus=virus, top_n_host=n_hosts, threshold=thresh, X_test_old=value, header=key,

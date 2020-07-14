@@ -9,7 +9,7 @@ import numpy as np
 @click.option('--outpath', '-o', default='.', help='path where to save the output')
 @click.option('--val_split_size', '-v', default=float(0.2), help='select the portion of the data which is used for the validation set')
 @click.option('--test_split_size', '-t', default=float(0.2), help='select the portion of the data which is used for the test set')
-@click.option('--repeated_undersampling', '-r', is_flag=True, help='use repeated undersampling while training, to be usable the training files must be generated with make_dataset.py and activated reapeted undersampling parameter')
+@click.option('--repeated_undersampling', '-r', is_flag=True, help='generate training files needed for reapeted undersampling while training')
 
 
 def make_dataset(sequences, hosts, outpath, val_split_size, test_split_size, repeated_undersampling):
@@ -18,10 +18,10 @@ def make_dataset(sequences, hosts, outpath, val_split_size, test_split_size, rep
 		\b
 		Example:
 		set input and output parameter
-		$ python make_dataset.py -x /home/user/input/seq.txt -y /home/user/input/host.txt -o /home/user/trainingdata/
+		$ vidhop make_dataset -x /home/user/input/seq.txt -y /home/user/input/host.txt -o /home/user/trainingdata/
 		\b
 		change the validation set size and provide datastructure for repeated undersampling
-		$ python make_dataset.py -x /home/user/input/seq.txt -y /home/user/input/host.txt -v 0.1 -r
+		$ vidhop make_dataset -x /home/user/input/seq.txt -y /home/user/input/host.txt -v 0.1 -r
 		'''
 
 	if not os.path.isdir(outpath):
