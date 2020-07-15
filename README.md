@@ -13,7 +13,7 @@ We recommend to use miniconda for the enviroment management
     conda create -n vidhop python=3.7
     ```
     
-3.  Activate the Conda environment. You will need to activate the Conda environment in each terminal in which you want to use epidope.
+3.  Activate the Conda environment. You will need to activate the Conda environment in each terminal in which you want to use VIDHOP.
 
     ```bash
     conda activate vidhop
@@ -23,12 +23,6 @@ We recommend to use miniconda for the enviroment management
     ```bash
     conda install -c flomock -c anaconda vidhop
     ```
-
-5. Activated your conda environment:
-    ```
-    conda activate vidhop
-    ```
-
 
 
 ## How to use:
