@@ -23,7 +23,22 @@ We recommend to use miniconda for the enviroment management
     ```bash
     conda install -c flomock -c anaconda vidhop
     ```
+**only windows:** 
+if you install on windows you need more steps
 
+5. make sure you use the Anaconda Powershell Prompt and the vidhop enviroment (step 3)
+
+6. create a $profile if you don't have any
+
+    ```
+    New-Item -Path $profile -ItemType File -Force
+    ```
+7. create a function vidhop_win in your profile
+
+    ```
+    echo 'function vidhop_win {python (Get-Command vidhop).Path $args}' >> $profile
+    ```
+8. restart the Anaconda Powershell Prompt, you should be now able to use VIDHOP by typing ```vidhop_win``` instead of ```vidhop```
 
 ## How to use:
 
@@ -89,7 +104,7 @@ command | what it does
 Train your own model for other viruses than the provided ones (influenza A virus, rabies lyssavirus and rotavirus A) is simple.
 The workflow consists of three steps:
 
-1.  [vidhop make_datset](#vidhop-make_dataset)
+1.  [vidhop make_dataset](#vidhop-make_dataset)
 
 2.  [vidhop training](#vidhop-training)
 
