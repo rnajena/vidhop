@@ -3,7 +3,7 @@ VIDHOP is a virus host predicting tool. Its able to [predict](#examples-for-vidh
 
 ## Install: ##
 
-We recommend to use miniconda for the enviroment management
+We recommend to use linux and miniconda for the enviroment management
 
 1.  [Download and install Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
@@ -21,24 +21,8 @@ We recommend to use miniconda for the enviroment management
 4. Install vidhop via conda 
 
     ```bash
-    conda install -c flomock -c anaconda vidhop
+    conda install -c flomock -c anaconda vidhop=0.9
     ```
-**only windows:** 
-if you install on windows you need more steps
-
-5. make sure you use the Anaconda Powershell Prompt and the vidhop enviroment (step 3)
-
-6. create a $profile if you don't have any
-
-    ```
-    New-Item -Path $profile -ItemType File -Force
-    ```
-7. create a function vidhop_win in your profile
-
-    ```
-    echo 'function vidhop_win {python (Get-Command vidhop).Path $args}' >> $profile
-    ```
-8. restart the Anaconda Powershell Prompt, you should be now able to use VIDHOP by typing ```vidhop_win``` instead of ```vidhop```
 
 ## How to use:
 
