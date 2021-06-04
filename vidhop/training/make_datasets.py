@@ -91,7 +91,7 @@ def make_dataset(sequences, hosts, outpath, val_split_size, test_split_size, rep
 
 
 	# old way
-	number_samples_per_class_to_pick = int(np.ceil(number_samples_per_class_to_pick*(1-val_split_size-test_split_size)))
+	number_samples_per_class_to_pick = int(number_samples_per_class_to_pick*(1-val_split_size-test_split_size))
 	samples_train_reduced = pd.DataFrame()
 	for host in hosts:
 		df_host = samples_train[samples_train[rank] == host]
