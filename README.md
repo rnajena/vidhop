@@ -146,17 +146,17 @@ examples for vidhop training:
 
 set input output and name of the model
 ```
-vidhop train_new_model -i /home/user/trainingdata/ -o /home/user/model/ --name test
+vidhop training -i /home/user/trainingdata/ -o /home/user/model/ --name test
 ```
 
 use the LSTM archtecture and the extention variant random repeat
 ```
-vidhop train_new_model -i /home/user/trainingdata/ --architecture 0 --extention_variant 2
+vidhop training -i /home/user/trainingdata/ --architecture 0 --extention_variant 2
 ```
 
 use repeated undersampling for training, note that for this the dataset must have been created with repeated undersampling enabled
 ```
-vidhop train_new_model -i /home/user/trainingdata/ -r
+vidhop training -i /home/user/trainingdata/ -r
 ```
 
 train the model for 40 epochs, stop training if for 2 epochs the accuracy did not increase
