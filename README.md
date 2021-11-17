@@ -80,6 +80,32 @@ command | what it does
 --help          |show this message and exit.
 --version       |show version number from vidhop
 
+**Example output and what it means:**
+```
+per autofilter selected host of interest
+Anas crecca: 0.3680844306945801
+Anser fabalis: 0.22696886956691742
+
+all hosts
+Anas crecca: 0.3680844306945801
+Anser fabalis: 0.22696886956691742
+Cairina moschata: 0.14039446413516998
+Anas acuta: 0.0806809589266777
+Anas platyrhynchos: 0.0766301080584526
+Anas clypeata: 0.06576793640851974
+Anas rubripes: 0.01164703257381916
+Mareca strepera: 0.009029239416122437
+Gallus gallus: 0.005793101154267788
+Anas discors: 0.0032478864304721355
+Tadorna ferruginea: 0.0021137858275324106
+Struthio camelus: 0.0017334294971078634
+Chroicocephalus ridibundus: 0.001212031696923077
+Anas carolinensis: 0.0011747170938178897
+Cygnus columbianus: 0.0009851191425696015
+```
+
+The output is a list of potential hosts sorted by probability. For example an value of 0.368 represents a likelihood of 36.8% that this is the correct host, according to VIDHOP.
+The autofilter selects hosts the most promissing candidates.
 
 ## Train and use your own model:
 
