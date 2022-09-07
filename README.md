@@ -7,21 +7,17 @@ We recommend to use linux and miniconda for the enviroment management
 
 1.  [Download and install Conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
-2.  Create a Conda environment with a Python 3.7
-
-    ```bash
-    conda create -n vidhop python=3.7
-    ```
+2.  Download [the enviroment yml file](https://github.com/flomock/vidhop/blob/master/vidhop.yml)
     
 3.  Activate the Conda environment. You will need to activate the Conda environment in each terminal in which you want to use VIDHOP.
 
     ```bash
-    conda activate vidhop
+    conda env create -f vidhop.yml
     ```
-4. Install vidhop via conda 
+4.  Activate the Conda environment. You will need to activate the Conda environment in each terminal in which you want to use vidop.
 
     ```bash
-    conda install -c flomock -c anaconda vidhop=0.9
+    conda activate vidhop
     ```
 
 ## How to use:
@@ -55,11 +51,11 @@ vidhop predict -i /home/user/fasta/influenza.fna -v influ -o /home/user/vidhop_r
   use multiple fasta-files in directory
 ```
 vidhop predict -i /home/user/fasta/ -v rabies
-```  
+```
   use multiple fasta-files in directory and only present top 3 host predictions per sequence
 ```
 vidhop predict -i /home/user/fasta/ -v rabies -n_hosts
-```  
+```
 Use your own trained models generated with [vidhop training](#Train-and-use-your-own-model:). 
 You need to specify the path to the .model file you want to use. It's located in the output directory of vidhop 
 training. You can choose between the model with the lowest loss and the model with the highest accuracy while training.
@@ -214,7 +210,7 @@ Now we prepare the dataset. As an example we define the size of the validation-s
  of the full dataset. Note that the all data sets will be balanced according to their host classes. To use all samples, 
  even from an unbalanced dataset, without biasing towards the most common host class, use the --repeated_undersampling 
  parameter. This effects the samples used while training. The validation and test sets will be unchanged.
-  
+
 ```
 vidhop make_dataset -x X.txt -y Y.txt -r -o ./make_dataset_out -v 0.1 -t 0.2
 ```
@@ -230,7 +226,7 @@ warning number samples for host Cerdocyon thous low, only 82 samples
 Now we train a model using the standard parameter. As input we provide the output directory of vidhop make_dataset. 
 Furthermore we name our model "test_standard". 
 To limit training time we use -e to limit the number of epochs to two.  
- 
+
 ```
 vidhop training -i ./make_dataset_out -n test_standard -e 2 -o ./trained_models
 ```
@@ -272,7 +268,7 @@ Homo sapiens: 0.05704779922962189
 Bos taurus: 0.05660048499703407
 Canis lupus: 0.056392643600702286
 Cerdocyon thous: 0.05538821220397949
-``` 
+```
 (note that the input sequence is more or less random, so don't expect a very meaningful prediction)
 
 
