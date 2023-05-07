@@ -1,5 +1,5 @@
 # VIDHOP
-VIDHOP is a virus host predicting tool. Its able to [predict](#examples-for-vidhop-predict:) influenza A virus, rabies lyssavirus and rotavirus A. Furthermore the user can [train](#train-and-use-your-own-model:) its own models for other viruses and use them with VIDHOP.
+VIDHOP is a virus host predicting tool. Its able to [predict](#examples-for-vidhop-predict:) influenza A virus, rabies lyssavirus and rotavirus A. Furthermore the user can [train](#train-and-use-your-own-model:) its own models for other viruses and use them with VIDHOP. This is the tool descripted in the [original paper](https://doi.org/10.1093/bioinformatics/btaa705), for the supplementary and training data look [here](https://www.doi.org/10.17605/OSF.IO/UXT7N).
 
 ## Install: ##
 
